@@ -240,7 +240,7 @@ export default function ProfileScreen({ navigation, route }: any) {
         onPress={() => setShowPasswordForm(!showPasswordForm)}
       >
         <Text style={styles.toggleButtonText}>
-          {showPasswordForm ? 'Cerrar cambio de contraseña' : '🔒 Cambiar contraseña'}
+          {showPasswordForm ? 'Cerrar cambio de contraseña' : 'Cambiar contraseña'}
         </Text>
       </TouchableOpacity>
 
@@ -295,13 +295,13 @@ export default function ProfileScreen({ navigation, route }: any) {
 
 const styles = StyleSheet.create({
   container: { padding: 16, backgroundColor: colors.cream, paddingBottom: 30 },
-  profileCard: { backgroundColor: colors.paper, borderRadius: 22, padding: 20, marginBottom: 16, elevation: 3, shadowColor: colors.shadow, shadowOpacity: 0.1, shadowRadius: 14, shadowOffset: { width: 0, height: 5 } },
-  card: { backgroundColor: colors.paper, borderRadius: 20, padding: 20, marginBottom: 16, elevation: 2 },
+  profileCard: { backgroundColor: colors.paper, borderRadius: 22, padding: 20, marginBottom: 16, elevation: 3, shadowColor: colors.shadow, shadowOpacity: 0.1, shadowRadius: 14, shadowOffset: { width: 0, height: 5 }, borderWidth: 1, borderColor: colors.line },
+  card: { backgroundColor: colors.paper, borderRadius: 20, padding: 20, marginBottom: 16, elevation: 2, borderWidth: 1, borderColor: colors.line },
   avatarContainer: {
     width: 70,
     height: 70,
     borderRadius: 35,
-    backgroundColor: colors.wine,
+    backgroundColor: colors.wineDark,
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',

@@ -20,15 +20,15 @@ function MainTabs() {
   return (
     <Tab.Navigator screenOptions={{
       headerShown: true,
-      headerStyle: { backgroundColor: colors.cream },
-      headerTintColor: colors.wineDark,
-      headerTitleStyle: { fontFamily: typography.display, fontSize: 20 },
+      headerStyle: { backgroundColor: colors.wineDark },
+      headerTintColor: colors.paper,
+      headerTitleStyle: { fontFamily: typography.display, fontSize: 20, fontWeight: '800' },
       tabBarActiveTintColor: colors.wine,
       tabBarInactiveTintColor: colors.muted,
       tabBarStyle: { backgroundColor: colors.paper, borderTopColor: colors.line, height: 68, paddingBottom: 9, paddingTop: 7, elevation: 10, shadowColor: colors.shadow, shadowOpacity: 0.08, shadowRadius: 10 },
       tabBarLabelStyle: { fontSize: 11, fontWeight: '700' },
     }}>
-      <Tab.Screen name="Catalogo" component={HomeScreen} options={{ title: 'Catálogo', tabBarIcon: ({ color, size }) => <Ionicons name="sparkles-outline" color={color} size={size} /> }} />
+      <Tab.Screen name="Catalogo" component={HomeScreen} options={{ title: 'Catálogo', tabBarIcon: ({ color, size }) => <Ionicons name="shirt-outline" color={color} size={size} /> }} />
       <Tab.Screen name="Carrito" component={CartScreen} options={{ title: 'Mi Carrito', tabBarIcon: ({ color, size }) => <Ionicons name="bag-handle-outline" color={color} size={size} /> }} />
       <Tab.Screen name="Pedidos" component={OrdersScreen} options={{ title: 'Mis Pedidos', tabBarIcon: ({ color, size }) => <Ionicons name="receipt-outline" color={color} size={size} /> }} />
       <Tab.Screen name="Perfil" component={ProfileScreen} options={{ title: 'Mi Perfil', tabBarIcon: ({ color, size }) => <Ionicons name="person-outline" color={color} size={size} /> }} />
@@ -39,9 +39,9 @@ function MainTabs() {
 export default function AppNavigator() {
   return (
     <Stack.Navigator initialRouteName="Login" screenOptions={{
-      headerStyle: { backgroundColor: colors.cream },
-      headerTintColor: colors.wineDark,
-      headerTitleStyle: { fontFamily: typography.display, fontSize: 20 },
+      headerStyle: { backgroundColor: colors.wineDark },
+      headerTintColor: colors.paper,
+      headerTitleStyle: { fontFamily: typography.display, fontSize: 20, fontWeight: '800' },
       contentStyle: { backgroundColor: colors.cream },
     }}>
       <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />

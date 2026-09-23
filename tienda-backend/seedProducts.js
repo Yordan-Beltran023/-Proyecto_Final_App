@@ -1,14 +1,20 @@
 const { Client } = require('pg');
 require('dotenv').config();
 
-const categories = ['Labiales', 'Bases', 'Sombras', 'Skincare'];
+const categories = ['Camisetas', 'Sudaderas', 'Chaquetas', 'Pantalones', 'Accesorios'];
 const products = [
-  ['Velvet Rouge', 'Labial mate de larga duración', 290000, 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=900&q=80', 15, 'Labiales'],
-  ['Glow Base', 'Base ligera con acabado natural', 360000, 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=900&q=80', 12, 'Bases'],
-  ['Rose Quartz', 'Sombra satinada con brillo suave', 140000, 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=900&q=80', 20, 'Sombras'],
-  ['Hydra Mist', 'Mist facial hidratante para piel', 180000, 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=900&q=80', 18, 'Skincare'],
-  ['Crimson Kiss', 'Labial líquido premium', 220000, 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&w=900&q=80', 10, 'Labiales'],
-  ['Soft Blur', 'Base de cobertura media', 320000, 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80', 8, 'Bases'],
+  ['Camiseta Oversize Basic', 'Algodón pesado, silueta amplia y tacto premium con corte relajado.', 89000, 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80', 15, 'Camisetas'],
+  ['Camiseta Drapeada', 'Diseño fluido y elegante para un look moderno y ligero.', 99000, 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=900&q=80', 18, 'Camisetas'],
+  ['Hoodie Essential', 'Sudadera de felpa suave con volumen relajado y ajuste comfortable.', 189000, 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=80', 12, 'Sudaderas'],
+  ['Sudadera Fleece', 'Tela térmica con terminación premium y clásico look urbano.', 209000, 'https://images.unsplash.com/photo-1578681994506-b8f463449011?auto=format&fit=crop&w=900&q=80', 10, 'Sudaderas'],
+  ['Chaqueta Urban', 'Capa ligera con acabado técnico y corte boxy ideal para diario.', 249000, 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=900&q=80', 20, 'Chaquetas'],
+  ['Pantalón Cargo', 'Bolsillos utilitarios, fit recto y máxima libertad de movimiento.', 169000, 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=900&q=80', 18, 'Pantalones'],
+  ['Pantalón Relax', 'Corte cómodo y sobrio con tejido ligero para todo el día.', 179000, 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=900&q=80', 14, 'Pantalones'],
+  ['Gorra Classic', 'Sarga de algodón con bordado frontal minimal y acabado premium.', 69000, 'https://images.unsplash.com/photo-1521369909029-2afed882baee?auto=format&fit=crop&w=900&q=80', 10, 'Accesorios'],
+  ['Mochila Mini', 'Diseño funcional y moderno para días urbanos y viajes cortos.', 139000, 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=900&q=80', 9, 'Accesorios'],
+  ['Zapatillas Street', 'Perfil bajo, suela urbana y detalles en contraste para uso diario.', 279000, 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80', 8, 'Accesorios'],
+  ['Lentes de Sol', 'Armazón elegante con un toque contemporáneo y versátil.', 119000, 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=900&q=80', 11, 'Accesorios'],
+  ['Bolso Crossbody', 'Compacidad, estilo y funcionalidad para tus días más activos.', 159000, 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=900&q=80', 13, 'Accesorios'],
 ];
 
 async function upsertCategories(client) {

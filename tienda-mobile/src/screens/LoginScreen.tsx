@@ -42,15 +42,15 @@ export default function LoginScreen({ navigation }: any) {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <View style={styles.brandBlock}>
-        <Ionicons name="moon" size={34} color={colors.gold} style={styles.brandMark} />
-        <Text style={styles.title}>Luna Rosa</Text>
-        <Text style={styles.subtitle}>Belleza para tu ritual diario</Text>
+        <Ionicons name="shirt-outline" size={34} color={colors.gold} style={styles.brandMark} />
+        <Text style={styles.title}>NOVA / FORM</Text>
+        <Text style={styles.subtitle}>Uniforme para tu propia frecuencia</Text>
       </View>
 
       <View style={styles.formCard}>
-        <Text style={styles.formEyebrow}>BIENVENIDA</Text>
-        <Text style={styles.formTitle}>Entra a tu mundo</Text>
-        <Text style={styles.formHint}>Continúa donde tu rutina empieza.</Text>
+        <Text style={styles.formEyebrow}>MEMBERS ONLY</Text>
+        <Text style={styles.formTitle}>Entra a tu espacio</Text>
+        <Text style={styles.formHint}>Accede a tus prendas favoritas y pedidos.</Text>
 
         <TextInput
           style={styles.input}
@@ -75,7 +75,7 @@ export default function LoginScreen({ navigation }: any) {
           {loading ? (
             <ActivityIndicator color="#ffffff" />
           ) : (
-            <Text style={styles.buttonText}>Entrar a la tienda</Text>
+            <Text style={styles.buttonText}>Entrar a NOVA</Text>
           )}
         </TouchableOpacity>
 
@@ -91,13 +91,13 @@ const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', padding: 22, backgroundColor: colors.cream },
   brandBlock: { alignItems: 'center', marginBottom: 28 },
   brandMark: { marginBottom: 4 },
-  title: { fontFamily: typography.display, fontSize: 42, color: colors.wineDark, marginBottom: 6 },
-  subtitle: { fontSize: 14, color: colors.muted, letterSpacing: 0.3 },
-  formCard: { backgroundColor: colors.paper, borderRadius: 24, padding: 22, shadowColor: colors.shadow, shadowOpacity: 0.12, shadowRadius: 18, shadowOffset: { width: 0, height: 8 }, elevation: 4 },
+  title: { fontFamily: typography.display, fontSize: 35, fontWeight: '800', letterSpacing: 1.2, color: colors.wineDark, marginBottom: 6 },
+  subtitle: { fontFamily: typography.body, fontSize: 14, color: colors.muted, letterSpacing: 0.3 },
+  formCard: { backgroundColor: colors.paper, borderRadius: 24, padding: 22, shadowColor: colors.shadow, shadowOpacity: 0.12, shadowRadius: 18, shadowOffset: { width: 0, height: 8 }, elevation: 4, borderWidth: 1, borderColor: colors.line },
   formEyebrow: { color: colors.wine, fontSize: 11, fontWeight: '800', letterSpacing: 1.8, marginBottom: 8 },
   formTitle: { fontFamily: typography.display, fontSize: 27, color: colors.ink, marginBottom: 5 },
-  formHint: { fontSize: 13, color: colors.muted, marginBottom: 22 },
-  input: { borderWidth: 1, borderColor: colors.line, backgroundColor: colors.cream, paddingHorizontal: 16, paddingVertical: 15, borderRadius: 13, marginBottom: 13, fontSize: 15, color: colors.ink },
+  formHint: { fontFamily: typography.body, fontSize: 13, color: colors.muted, marginBottom: 22 },
+  input: { fontFamily: typography.body, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.cream, paddingHorizontal: 16, paddingVertical: 15, borderRadius: 13, marginBottom: 13, fontSize: 15, color: colors.ink },
   button: { backgroundColor: colors.wine, padding: 16, borderRadius: 13, alignItems: 'center', marginTop: 5, shadowColor: colors.wineDark, shadowOpacity: 0.2, shadowRadius: 8, shadowOffset: { width: 0, height: 4 }, elevation: 3 },
   buttonText: { color: '#ffffff', fontSize: 16, fontWeight: '800' },
   linkText: { color: colors.muted, textAlign: 'center', marginTop: 22, fontSize: 13 },

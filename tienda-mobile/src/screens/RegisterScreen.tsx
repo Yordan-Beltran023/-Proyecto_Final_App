@@ -45,13 +45,13 @@ export default function RegisterScreen({ navigation }: any) {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
-        <Ionicons name="moon" size={34} color={colors.gold} style={styles.brandMark} />
-        <Text style={styles.title}>Crear tu cuenta</Text>
-        <Text style={styles.subtitle}>Empieza tu ritual de belleza</Text>
+        <Ionicons name="shirt-outline" size={34} color={colors.gold} style={styles.brandMark} />
+        <Text style={styles.title}>Únete a NOVA</Text>
+        <Text style={styles.subtitle}>Tu armario, tu código, tu ritmo</Text>
 
         <View style={styles.formCard}>
-          <Text style={styles.formEyebrow}>NUEVA CLIENTA</Text>
-          <Text style={styles.formHint}>Completa tus datos para guardar tus favoritos y pedidos.</Text>
+          <Text style={styles.formEyebrow}>NUEVO MIEMBRO</Text>
+          <Text style={styles.formHint}>Crea tu perfil para guardar favoritos y pedidos.</Text>
 
           <TextInput
             style={styles.input}
@@ -119,11 +119,11 @@ const styles = StyleSheet.create({
   container: { padding: 22, paddingTop: 30, paddingBottom: 40, flexGrow: 1 },
   brandMark: { marginBottom: 4, alignSelf: 'center' },
   title: { fontFamily: typography.display, fontSize: 32, color: colors.wineDark, marginBottom: 6, textAlign: 'center' },
-  subtitle: { color: colors.muted, textAlign: 'center', marginBottom: 24 },
+  subtitle: { fontFamily: typography.body, color: colors.muted, textAlign: 'center', marginBottom: 24 },
   formCard: { backgroundColor: colors.paper, borderRadius: 24, padding: 20, shadowColor: colors.shadow, shadowOpacity: 0.1, shadowRadius: 16, shadowOffset: { width: 0, height: 7 }, elevation: 3 },
   formEyebrow: { color: colors.wine, fontSize: 11, fontWeight: '800', letterSpacing: 1.6, marginBottom: 7 },
-  formHint: { color: colors.muted, fontSize: 13, lineHeight: 19, marginBottom: 20 },
-  input: { borderWidth: 1, borderColor: colors.line, backgroundColor: colors.cream, paddingHorizontal: 15, paddingVertical: 14, borderRadius: 13, marginBottom: 12, fontSize: 15, color: colors.ink },
+  formHint: { fontFamily: typography.body, color: colors.muted, fontSize: 13, lineHeight: 19, marginBottom: 20 },
+  input: { fontFamily: typography.body, borderWidth: 1, borderColor: colors.line, backgroundColor: colors.cream, paddingHorizontal: 15, paddingVertical: 14, borderRadius: 13, marginBottom: 12, fontSize: 15, color: colors.ink },
   button: { backgroundColor: colors.wine, padding: 16, borderRadius: 13, alignItems: 'center', marginTop: 6 },
   buttonText: { color: '#ffffff', fontSize: 16, fontWeight: 'bold' }
 });

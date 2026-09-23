@@ -14,6 +14,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { api } from '../services/api';
 import { clearAuthSession } from '../database/db';
+import { colors, typography } from '../theme';
 
 export default function AdminOrdersScreen({ navigation }: any) {
   const [orders, setOrders] = useState<any[]>([]);
@@ -116,14 +117,14 @@ export default function AdminOrdersScreen({ navigation }: any) {
     <View style={styles.container}>
       <View style={styles.headerBox}>
         <Text style={styles.headerTitle}>Panel de pedidos</Text>
-        <Text style={styles.headerSubtitle}>Luna Rosa • administración</Text>
+        <Text style={styles.headerSubtitle}>NOVA / FORM · administración</Text>
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
           <Text style={styles.logoutButtonText}>Cerrar sesión</Text>
         </TouchableOpacity>
       </View>
 
       {loading ? (
-        <ActivityIndicator size="large" color="#8b1e3f" style={{ marginTop: 40 }} />
+        <ActivityIndicator size="large" color={colors.wine} style={{ marginTop: 40 }} />
       ) : (
         <FlatList
           data={orders}
@@ -141,7 +142,7 @@ export default function AdminOrdersScreen({ navigation }: any) {
               <Text style={styles.clientEmail}>{item.cliente_email}</Text>
 
               <TouchableOpacity style={styles.detailButton} onPress={() => openOrderDetail(item)}>
-                <Ionicons name="eye-outline" size={17} color="#8b1e3f" />
+                <Ionicons name="eye-outline" size={17} color={colors.wine} />
                 <Text style={styles.detailButtonText}>Ver productos y cantidades</Text>
               </TouchableOpacity>
 
@@ -207,9 +208,9 @@ export default function AdminOrdersScreen({ navigation }: any) {
           <View style={styles.detailModal}>
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Pedido #{orderDetail?.pedido?.id}</Text>
-              <TouchableOpacity onPress={() => setDetailVisible(false)}><Ionicons name="close" size={24} color="#4a1327" /></TouchableOpacity>
+              <TouchableOpacity onPress={() => setDetailVisible(false)}><Ionicons name="close" size={24} color={colors.wineDark} /></TouchableOpacity>
             </View>
-            {detailLoading ? <ActivityIndicator color="#8b1e3f" /> : orderDetail?.detalles?.map((item: any) => (
+            {detailLoading ? <ActivityIndicator color={colors.wine} /> : orderDetail?.detalles?.map((item: any) => (
               <View style={styles.detailRow} key={item.id}>
                 <Image source={{ uri: item.imagen_url }} style={styles.detailImage} />
                 <View style={styles.detailInfo}>
@@ -229,43 +230,43 @@ export default function AdminOrdersScreen({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f7f2f2', padding: 16 },
-  headerBox: { backgroundColor: '#8b1e3f', borderRadius: 16, padding: 18, marginBottom: 16, elevation: 2 },
-  headerTitle: { fontSize: 26, fontWeight: '700', color: '#fff', marginBottom: 4 },
-  headerSubtitle: { fontSize: 12, color: '#f5dfe7', letterSpacing: 1.2, textTransform: 'uppercase' },
-  logoutButton: { marginTop: 14, alignSelf: 'flex-end', backgroundColor: '#f8dfe6', paddingHorizontal: 12, paddingVertical: 8, borderRadius: 10 },
-  logoutButtonText: { color: '#8b1e3f', fontWeight: '700', fontSize: 12 },
+  container: { flex: 1, backgroundColor: colors.cream, padding: 16 },
+  headerBox: { backgroundColor: colors.wineDark, borderRadius: 16, padding: 18, marginBottom: 16, elevation: 2 },
+  headerTitle: { fontFamily: typography.display, fontSize: 26, fontWeight: '700', color: colors.paper, marginBottom: 4 },
+  headerSubtitle: { fontSize: 12, color: colors.blush, letterSpacing: 1.2, textTransform: 'uppercase' },
+  logoutButton: { marginTop: 14, alignSelf: 'flex-end', backgroundColor: colors.wineSoft, paddingHorizontal: 12, paddingVertical: 8, borderRadius: 10 },
+  logoutButtonText: { color: colors.wineDark, fontWeight: '700', fontSize: 12 },
   listContent: { paddingBottom: 20 },
-  card: { backgroundColor: '#ffffff', padding: 16, borderRadius: 14, marginBottom: 12, elevation: 2, borderWidth: 1, borderColor: '#f0d7de' },
+  card: { backgroundColor: colors.paper, padding: 16, borderRadius: 14, marginBottom: 12, elevation: 2, borderWidth: 1, borderColor: colors.line },
   cardHeader: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 },
-  orderId: { fontSize: 16, fontWeight: '700', color: '#8b1e3f' },
-  orderDate: { fontSize: 12, color: '#8b7f82' },
-  clientName: { fontSize: 15, fontWeight: '700', color: '#2d2d2d' },
-  clientEmail: { fontSize: 12, color: '#6f525b', marginBottom: 12 },
+  orderId: { fontSize: 16, fontWeight: '700', color: colors.wine },
+  orderDate: { fontSize: 12, color: colors.muted },
+  clientName: { fontSize: 15, fontWeight: '700', color: colors.ink },
+  clientEmail: { fontSize: 12, color: colors.muted, marginBottom: 12 },
   detailButton: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingVertical: 9, marginBottom: 10 },
-  detailButtonText: { color: '#8b1e3f', fontSize: 12, fontWeight: '700' },
+  detailButtonText: { color: colors.wine, fontSize: 12, fontWeight: '700' },
   cardFooter: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  totalAmount: { fontSize: 18, fontWeight: '800', color: '#4a1327' },
-  changeStatusButton: { backgroundColor: '#8b1e3f', paddingHorizontal: 12, paddingVertical: 7, borderRadius: 10 },
+  totalAmount: { fontSize: 18, fontWeight: '800', color: colors.ink },
+  changeStatusButton: { backgroundColor: colors.wineDark, paddingHorizontal: 12, paddingVertical: 7, borderRadius: 10 },
   changeStatusText: { color: '#ffffff', fontSize: 12, fontWeight: '700' },
-  emptyText: { textAlign: 'center', color: '#8a7280', marginTop: 40, fontSize: 15 },
-  modalOverlay: { flex: 1, backgroundColor: 'rgba(32,18,21,0.52)', justifyContent: 'center', padding: 20 },
-  modalContent: { backgroundColor: '#fffafc', borderRadius: 16, padding: 20 },
-  modalTitle: { fontSize: 18, fontWeight: '700', marginBottom: 16, textAlign: 'center', color: '#3f1d2c' },
-  statusOption: { padding: 14, borderRadius: 10, borderWidth: 1, borderColor: '#e9d5dc', marginBottom: 8, backgroundColor: '#ffffff' },
-  activeStatusOption: { backgroundColor: '#8b1e3f', borderColor: '#8b1e3f' },
-  statusOptionText: { textAlign: 'center', color: '#3f1d2c', fontWeight: '700' },
+  emptyText: { textAlign: 'center', color: colors.muted, marginTop: 40, fontSize: 15 },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(15,23,42,0.55)', justifyContent: 'center', padding: 20 },
+  modalContent: { backgroundColor: colors.paper, borderRadius: 16, padding: 20 },
+  modalTitle: { fontSize: 18, fontWeight: '700', marginBottom: 16, textAlign: 'center', color: colors.ink },
+  statusOption: { padding: 14, borderRadius: 10, borderWidth: 1, borderColor: colors.line, marginBottom: 8, backgroundColor: colors.paper },
+  activeStatusOption: { backgroundColor: colors.wineDark, borderColor: colors.wineDark },
+  statusOptionText: { textAlign: 'center', color: colors.ink, fontWeight: '700' },
   activeStatusOptionText: { color: '#ffffff' },
   closeModalButton: { marginTop: 12, padding: 12, alignItems: 'center' },
-  closeModalText: { color: '#8b1e3f', fontWeight: '700' },
-  detailModal: { backgroundColor: '#fffafc', borderTopLeftRadius: 22, borderTopRightRadius: 22, padding: 20, maxHeight: '78%' },
+  closeModalText: { color: colors.wine, fontWeight: '700' },
+  detailModal: { backgroundColor: '#F8FBFF', borderTopLeftRadius: 22, borderTopRightRadius: 22, padding: 20, maxHeight: '78%' },
   modalHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 },
-  detailRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#f0d7de' },
-  detailImage: { width: 52, height: 52, borderRadius: 8, backgroundColor: '#f5e7eb' },
+  detailRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#DDE7F3' },
+  detailImage: { width: 52, height: 52, borderRadius: 8, backgroundColor: '#EAF3FF' },
   detailInfo: { flex: 1, marginHorizontal: 10 },
-  detailName: { color: '#2d2d2d', fontWeight: '700', fontSize: 14 },
-  detailMeta: { color: '#8b7f82', fontSize: 12, marginTop: 3 },
-  detailSubtotal: { color: '#8b1e3f', fontWeight: '800', fontSize: 13 },
+  detailName: { color: colors.ink, fontWeight: '700', fontSize: 14 },
+  detailMeta: { color: colors.muted, fontSize: 12, marginTop: 3 },
+  detailSubtotal: { color: colors.wine, fontWeight: '800', fontSize: 13 },
   detailTotal: { flexDirection: 'row', justifyContent: 'space-between', paddingTop: 18 },
-  totalLabel: { color: '#6f525b', fontSize: 15, fontWeight: '700' }
+  totalLabel: { color: colors.muted, fontSize: 15, fontWeight: '700' }
 });

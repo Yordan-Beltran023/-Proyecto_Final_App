@@ -90,13 +90,13 @@ export default function OrdersScreen() {
 
   const getStatusColor = (estado: string) => {
     switch (estado) {
-      case 'Entregado': return '#34C759';
-      case 'Enviado': return '#007AFF';
-      case 'En preparación': return '#5856D6';
-      case 'Confirmado': return '#FF9500';
-      case 'Pendiente de Sincronización': return '#FF3B30';
-      case 'Cancelado': return '#8E8E93';
-      default: return '#FF9500';
+      case 'Entregado': return colors.success;
+      case 'Enviado': return '#3B82F6';
+      case 'En preparación': return '#8B5CF6';
+      case 'Confirmado': return '#F59E0B';
+      case 'Pendiente de Sincronización': return colors.danger;
+      case 'Cancelado': return '#94A3B8';
+      default: return '#F59E0B';
     }
   };
 
@@ -120,12 +120,13 @@ export default function OrdersScreen() {
     <View style={styles.container}>
       {isOffline && (
         <View style={styles.offlineBanner}>
-          <Text style={styles.offlineText}>Sin conexión — Hay pedidos en espera por sincronizar</Text>
+          <Ionicons name="cloud-offline-outline" size={16} color="#fff" />
+          <Text style={styles.offlineText}>Sin conexión · pedidos en espera</Text>
         </View>
       )}
 
       {loading ? (
-        <ActivityIndicator size="large" color="#007AFF" style={{ marginTop: 40 }} />
+        <ActivityIndicator size="large" color={colors.wine} style={{ marginTop: 40 }} />
       ) : (
         <FlatList
           data={allOrdersList}
@@ -159,7 +160,7 @@ export default function OrdersScreen() {
                     <Text style={styles.syncButtonText}>Reintentar Sincronización</Text>
                   </TouchableOpacity>
                 )}
-                {!item.isPendingLocal && <Ionicons name="chevron-forward" size={20} color="#8b1e3f" />}
+                {!item.isPendingLocal && <Ionicons name="chevron-forward" size={20} color={colors.wine} />}
               </View>
             </TouchableOpacity>
           )}
@@ -175,9 +176,9 @@ export default function OrdersScreen() {
           <View style={styles.detailModal}>
             <View style={styles.modalHeader}>
               <Text style={styles.modalTitle}>Detalle del pedido #{selectedOrder?.id}</Text>
-              <TouchableOpacity onPress={() => setSelectedOrder(null)}><Ionicons name="close" size={24} color="#4E1329" /></TouchableOpacity>
+              <TouchableOpacity onPress={() => setSelectedOrder(null)}><Ionicons name="close" size={24} color={colors.wineDark} /></TouchableOpacity>
             </View>
-            {detailLoading ? <ActivityIndicator color="#8b1e3f" /> : orderDetail?.detalles?.map((item: any) => (
+            {detailLoading ? <ActivityIndicator color={colors.wine} /> : orderDetail?.detalles?.map((item: any) => (
               <View style={styles.detailRow} key={item.id}>
                 <Image source={{ uri: item.imagen_url }} style={styles.detailImage} />
                 <View style={styles.detailInfo}>
@@ -198,10 +199,10 @@ export default function OrdersScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.cream },
-  offlineBanner: { backgroundColor: colors.warning, padding: 10, alignItems: 'center' },
+  offlineBanner: { backgroundColor: colors.warning, padding: 10, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 6 },
   offlineText: { color: '#ffffff', fontWeight: 'bold', fontSize: 12 },
   listContent: { padding: 16 },
-  card: { backgroundColor: colors.paper, borderRadius: 17, padding: 16, marginBottom: 12, elevation: 2, shadowColor: colors.shadow, shadowOpacity: 0.07, shadowRadius: 10, shadowOffset: { width: 0, height: 4 } },
+  card: { backgroundColor: colors.paper, borderRadius: 17, padding: 16, marginBottom: 12, elevation: 2, shadowColor: colors.shadow, shadowOpacity: 0.07, shadowRadius: 10, shadowOffset: { width: 0, height: 4 }, borderWidth: 1, borderColor: colors.line },
   pendingCard: { borderLeftWidth: 4, borderLeftColor: colors.warning },
   cardHeader: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 },
   orderId: { fontFamily: typography.display, fontSize: 19, color: colors.wineDark },
@@ -210,20 +211,20 @@ const styles = StyleSheet.create({
   totalLabel: { fontSize: 14, color: colors.muted },
   totalAmount: { fontSize: 18, fontWeight: 'bold', color: colors.ink },
   cardFooter: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  statusBadge: { paddingHorizontal: 10, paddingVertical: 4, borderRadius: 12 },
+  statusBadge: { paddingHorizontal: 10, paddingVertical: 5, borderRadius: 12 },
   statusText: { color: '#ffffff', fontSize: 12, fontWeight: 'bold' },
-  syncButton: { backgroundColor: '#007AFF', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 6 },
+  syncButton: { backgroundColor: colors.wine, paddingHorizontal: 10, paddingVertical: 4, borderRadius: 6 },
   syncButtonText: { color: '#ffffff', fontSize: 11, fontWeight: 'bold' },
-  emptyText: { textAlign: 'center', color: colors.muted, marginTop: 40, fontSize: 15 }
-  ,modalOverlay: { flex: 1, backgroundColor: 'rgba(32,18,21,0.52)', justifyContent: 'flex-end' },
-  detailModal: { backgroundColor: '#fffafc', borderTopLeftRadius: 22, borderTopRightRadius: 22, padding: 20, maxHeight: '78%' },
+  emptyText: { textAlign: 'center', color: colors.muted, marginTop: 40, fontSize: 15 },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(15,23,42,0.55)', justifyContent: 'flex-end' },
+  detailModal: { backgroundColor: '#F8FBFF', borderTopLeftRadius: 22, borderTopRightRadius: 22, padding: 20, maxHeight: '78%' },
   modalHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 },
-  modalTitle: { color: '#4E1329', fontSize: 20, fontWeight: '800' },
-  detailRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#eadde0' },
-  detailImage: { width: 52, height: 52, borderRadius: 8, backgroundColor: '#f5e7eb' },
+  modalTitle: { color: colors.wineDark, fontSize: 20, fontWeight: '800' },
+  detailRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 10, borderBottomWidth: 1, borderBottomColor: '#DDE7F3' },
+  detailImage: { width: 52, height: 52, borderRadius: 8, backgroundColor: '#EAF3FF' },
   detailInfo: { flex: 1, marginHorizontal: 10 },
-  detailName: { color: '#2B1A20', fontWeight: '700', fontSize: 14 },
-  detailMeta: { color: '#806B72', fontSize: 12, marginTop: 3 },
-  detailSubtotal: { color: '#7A1F3D', fontWeight: '800', fontSize: 13 },
+  detailName: { color: colors.ink, fontWeight: '700', fontSize: 14 },
+  detailMeta: { color: colors.muted, fontSize: 12, marginTop: 3 },
+  detailSubtotal: { color: colors.wine, fontWeight: '800', fontSize: 13 },
   detailTotal: { flexDirection: 'row', justifyContent: 'space-between', paddingTop: 18 }
 });

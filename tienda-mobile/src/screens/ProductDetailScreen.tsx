@@ -53,7 +53,7 @@ export default function ProductDetailScreen({ route }: any) {
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => { setRefreshing(true); loadProduct(); }} />}
     >
       <Image source={{ uri: product.imagen_url }} style={styles.image} />
-      <Text style={styles.category}>{product.categoria_nombre || 'Belleza'}</Text>
+      <Text style={styles.category}>{product.categoria_nombre || 'ESSENTIALS'}</Text>
       <Text style={styles.title}>{product.nombre}</Text>
       <Text style={styles.price}>{formatCOP(Number(product.precio))}</Text>
       <Text style={styles.description}>{product.descripcion}</Text>
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   title: { color: colors.ink, fontFamily: typography.display, fontSize: 31, marginHorizontal: 20 },
   price: { color: colors.wineDark, fontSize: 25, fontWeight: '800', margin: 20, marginTop: 11 },
   description: { color: colors.muted, fontSize: 15, lineHeight: 24, marginHorizontal: 20 },
-  stockRow: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.wineSoft, margin: 20, padding: 13, borderRadius: 13 },
+  stockRow: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.wineSoft, margin: 20, padding: 13, borderRadius: 13, borderWidth: 1, borderColor: colors.line },
   stock: { color: colors.wineDark, fontWeight: '600' },
   addButton: { backgroundColor: colors.wine, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 8, marginHorizontal: 20, padding: 17, borderRadius: 14, shadowColor: colors.wineDark, shadowOpacity: 0.18, shadowRadius: 8, shadowOffset: { width: 0, height: 4 }, elevation: 3 },
   disabledButton: { backgroundColor: colors.line },

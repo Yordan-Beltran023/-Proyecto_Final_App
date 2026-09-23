@@ -111,7 +111,7 @@ export default function HomeScreen({ navigation }: any) {
       />
       <View style={styles.cardContent}>
         <View>
-          <Text style={styles.categoryBadge}>{item.categoria_nombre || 'Belleza'}</Text>
+          <Text style={styles.categoryBadge}>{item.categoria_nombre || 'ESSENTIALS'}</Text>
           <Text style={styles.productTitle} numberOfLines={1}>{item.nombre}</Text>
           <Text style={styles.productDescription} numberOfLines={2}>{item.descripcion}</Text>
         </View>
@@ -132,7 +132,7 @@ export default function HomeScreen({ navigation }: any) {
             onPress={() => handleAddToCart(item)}
             disabled={item.stock <= 0}
           >
-            <Text style={styles.addButtonText}>Añadir</Text>
+            <Ionicons name="add" size={18} color="#fff" />
           </TouchableOpacity>
         </View>
       </View>
@@ -143,28 +143,38 @@ export default function HomeScreen({ navigation }: any) {
     <View style={styles.container}>
       <View style={styles.hero}>
         <View>
-          <Text style={styles.eyebrow}>LUNA ROSA · BEAUTY EDIT</Text>
-          <Text style={styles.heroTitle}>Tu belleza,{`\n`}tu lenguaje</Text>
-          <Text style={styles.heroSubtitle}>Piezas elegidas para tu ritual diario.</Text>
+          <Text style={styles.eyebrow}>NOVA / FORM · DROP 01</Text>
+          <Text style={styles.heroTitle}>Viste tu{`\n`}propio ritmo</Text>
+          <Text style={styles.heroSubtitle}>Streetwear esencial para todos los días.</Text>
         </View>
-        <View style={styles.heroSeal}><Ionicons name="moon" size={40} color={colors.gold} style={styles.heroMark} /></View>
+        <View style={styles.heroSeal}><Ionicons name="shirt-outline" size={34} color={colors.gold} style={styles.heroMark} /></View>
       </View>
 
       {/* Indicador de Estado Offline/Online */}
       {isOffline && (
         <View style={styles.offlineBanner}>
-          <Text style={styles.offlineText}>Sin conexión a Internet — Modo Local (SQLite)</Text>
+          <Ionicons name="cloud-offline-outline" size={15} color="#fff" />
+          <Text style={styles.offlineText}>Sin conexión · catálogo local</Text>
         </View>
       )}
 
       {/* Buscador */}
       <View style={styles.searchContainer}>
-        <Text style={styles.sectionTitle}>Explora la colección</Text>
+        <View style={styles.sectionHeading}>
+          <Text style={styles.sectionTitle}>Explora la colección</Text>
+          <Text style={styles.sectionKicker}>NUEVO</Text>
+        </View>
+        <View style={styles.categoryRow}>
+          <Text style={styles.categoryChipActive}>TODO</Text>
+          <Text style={styles.categoryChip}>CAMISETAS</Text>
+          <Text style={styles.categoryChip}>HOODIES</Text>
+          <Text style={styles.categoryChip}>ACCESORIOS</Text>
+        </View>
         <View style={styles.searchBox}>
-          <Text style={styles.searchIcon}>⌕</Text>
+          <Ionicons name="search-outline" size={20} color={colors.wine} />
           <TextInput
           style={styles.searchInput}
-          placeholder="Buscar labiales, bases, sombras..."
+          placeholder="Buscar prendas, accesorios..."
           placeholderTextColor={colors.muted}
           value={search}
           onChangeText={handleSearch}
@@ -196,29 +206,33 @@ export default function HomeScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.cream },
   hero: { backgroundColor: colors.wineDark, paddingHorizontal: 22, paddingTop: 25, paddingBottom: 30, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomLeftRadius: 26, borderBottomRightRadius: 26 },
-  eyebrow: { color: colors.gold, fontSize: 10, fontWeight: '800', letterSpacing: 1.4, marginBottom: 9 },
-  heroTitle: { color: colors.paper, fontFamily: typography.display, fontSize: 31, lineHeight: 36 },
-  heroSubtitle: { color: '#F4DDE4', fontSize: 13, lineHeight: 19, marginTop: 11, maxWidth: 235 },
+  eyebrow: { color: colors.gold, fontSize: 10, fontWeight: '800', letterSpacing: 1.8, marginBottom: 9 },
+  heroTitle: { color: colors.paper, fontFamily: typography.display, fontSize: 31, lineHeight: 36, letterSpacing: 0.2 },
+  heroSubtitle: { color: '#DCD9D2', fontSize: 13, lineHeight: 19, marginTop: 11, maxWidth: 235 },
   heroSeal: { width: 66, height: 66, borderRadius: 33, borderWidth: 1, borderColor: colors.gold, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.06)' },
   heroMark: { marginLeft: 1 },
-  offlineBanner: { backgroundColor: colors.warning, padding: 8, alignItems: 'center' },
+  offlineBanner: { backgroundColor: colors.warning, padding: 8, alignItems: 'center', flexDirection: 'row', justifyContent: 'center', gap: 6 },
   offlineText: { color: '#ffffff', fontWeight: 'bold', fontSize: 12 },
   searchContainer: { padding: 18, paddingBottom: 8 },
+  sectionHeading: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   sectionTitle: { color: colors.ink, fontFamily: typography.display, fontSize: 22, marginBottom: 12 },
+  sectionKicker: { color: colors.wine, fontSize: 10, fontWeight: '800', letterSpacing: 1.4, marginBottom: 12 },
+  categoryRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 14 },
+  categoryChip: { color: colors.muted, borderWidth: 1, borderColor: colors.line, paddingHorizontal: 10, paddingVertical: 7, borderRadius: 16, fontSize: 10, fontWeight: '800', letterSpacing: 0.4 },
+  categoryChipActive: { color: colors.paper, backgroundColor: colors.wineDark, paddingHorizontal: 12, paddingVertical: 7, borderRadius: 16, fontSize: 10, fontWeight: '800', letterSpacing: 0.4 },
   searchBox: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.paper, borderWidth: 1, borderColor: colors.line, borderRadius: 14, paddingLeft: 13 },
-  searchIcon: { color: colors.wine, fontSize: 25, lineHeight: 25, marginRight: 4 },
-  searchInput: { flex: 1, paddingHorizontal: 8, paddingVertical: 12, fontSize: 14, color: colors.ink },
+  searchInput: { flex: 1, paddingHorizontal: 10, paddingVertical: 12, fontSize: 14, color: colors.ink },
   listContent: { paddingHorizontal: 18, paddingBottom: 24 },
-  card: { backgroundColor: colors.paper, borderRadius: 18, marginBottom: 15, flexDirection: 'row', overflow: 'hidden', elevation: 2, shadowColor: colors.shadow, shadowOpacity: 0.1, shadowRadius: 10, shadowOffset: { width: 0, height: 4 } },
+  card: { backgroundColor: colors.paper, borderRadius: 18, marginBottom: 15, flexDirection: 'row', overflow: 'hidden', elevation: 2, shadowColor: colors.shadow, shadowOpacity: 0.1, shadowRadius: 10, shadowOffset: { width: 0, height: 4 }, borderWidth: 1, borderColor: colors.line },
   cardImage: { width: 116, height: 132, backgroundColor: colors.wineSoft },
   cardContent: { flex: 1, padding: 10, justifyContent: 'space-between' },
   categoryBadge: { fontSize: 10, color: colors.wine, fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: 0.6 },
-  productTitle: { fontSize: 16, fontWeight: '700', color: colors.ink, marginTop: 3 },
-  productDescription: { fontSize: 12, color: colors.muted, marginVertical: 3, lineHeight: 16 },
+  productTitle: { fontFamily: typography.body, fontSize: 16, fontWeight: '700', color: colors.ink, marginTop: 3 },
+  productDescription: { fontFamily: typography.body, fontSize: 12, color: colors.muted, marginVertical: 3, lineHeight: 16 },
   cardFooter: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 6 },
-  productPrice: { fontSize: 16, fontWeight: 'bold', color: colors.wineDark },
+  productPrice: { fontFamily: typography.body, fontSize: 16, fontWeight: 'bold', color: colors.wineDark },
   stockText: { fontSize: 11, fontWeight: '500' },
-  addButton: { backgroundColor: colors.wine, paddingHorizontal: 13, paddingVertical: 9, borderRadius: 10 },
+  addButton: { backgroundColor: colors.wineDark, paddingHorizontal: 13, paddingVertical: 9, borderRadius: 10, justifyContent: 'center', alignItems: 'center' },
   disabledButton: { backgroundColor: colors.line },
   addButtonText: { color: '#ffffff', fontSize: 12, fontWeight: 'bold' },
   emptyText: { textAlign: 'center', color: colors.muted, marginTop: 40, fontSize: 15 }

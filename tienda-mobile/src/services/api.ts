@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { getAuthSession } from '../database/db';
 
-const fallbackApiBaseUrl = 
-  'http://172.20.10.4:3000/api';
+const fallbackApiBaseUrl = 'http://10.0.2.2:3000/api';
 
 export const API_BASE_URL =
   (process.env.EXPO_PUBLIC_API_BASE_URL || '').trim() || fallbackApiBaseUrl;
-  console.log("URL API:", API_BASE_URL);
+
+console.log('URL API:', API_BASE_URL);
 
 export const api = axios.create({
   baseURL: API_BASE_URL,

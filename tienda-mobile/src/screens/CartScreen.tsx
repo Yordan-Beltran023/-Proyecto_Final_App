@@ -50,19 +50,19 @@ export default function CartScreen() {
       return;
     }
 
+    const payload = {
+      productos: items.map((item) => ({
+        producto_id: item.producto_id,
+        nombre: item.nombre,
+        precio: Number(item.precio),
+        cantidad: item.cantidad,
+      })),
+    };
+
     setPlacingOrder(true);
     try {
       const networkState = await Network.getNetworkStateAsync();
       const isOffline = !networkState.isConnected || !networkState.isInternetReachable;
-
-      const payload = {
-        productos: items.map((item) => ({
-          producto_id: item.producto_id,
-          nombre: item.nombre,
-          precio: Number(item.precio),
-          cantidad: item.cantidad,
-        })),
-      };
 
       if (isOffline) {
       
@@ -81,8 +81,26 @@ export default function CartScreen() {
       setItems([]);
       Alert.alert('Pedido realizado', 'Tu pedido se creó correctamente y quedó pendiente de revisión.');
     } catch (error: any) {
-      const message = error.response?.data?.error || 'No se pudo realizar el pedido en este momento.';
-      Alert.alert('Error al crear pedido', `${message} Tus productos siguen en el carrito.`);
+      const isNetworkFailure = !error?.response;
+
+      if (isNetworkFailure) {
+        try {
+          await enqueueSyncOperation('POST', 'pedidos', payload);
+          await clearCartLocal();
+          setItems([]);
+          setIsOffline(true);
+          Alert.alert(
+            'Pedido guardado sin conexión',
+            'El servidor no respondió. Tu pedido quedó guardado localmente y se enviará automáticamente cuando vuelva la conexión.'
+          );
+        } catch (queueError) {
+          console.error('No se pudo guardar el pedido localmente:', queueError);
+          Alert.alert('Error al crear pedido', 'No se pudo contactar al servidor ni guardar el pedido localmente.');
+        }
+      } else {
+        const message = error.response?.data?.error || 'No se pudo realizar el pedido en este momento.';
+        Alert.alert('Error al crear pedido', `${message} Tus productos siguen en el carrito.`);
+      }
     } finally {
       setPlacingOrder(false);
     }
@@ -109,7 +127,7 @@ export default function CartScreen() {
     <View style={styles.container}>
       <View style={styles.headerCard}>
         <View>
-          <Text style={styles.headerTitle}>Carrito de compras</Text>
+          <Text style={styles.headerTitle}>Tu selección</Text>
           <Text style={styles.headerSubtitle}>{items.length} producto(s) seleccionado(s)</Text>
         </View>
         <View style={[styles.connectionBadge, isOffline ? styles.connectionOffline : styles.connectionOnline]}>
@@ -128,7 +146,7 @@ export default function CartScreen() {
             <Image source={{ uri: item.imagen_url || 'https://via.placeholder.com/80' }} style={styles.image} />
             <View style={styles.itemInfo}>
               <Text style={styles.name}>{item.nombre}</Text>
-              <Text style={styles.meta}>Cantidad: {item.cantidad}</Text>
+                <Text style={styles.meta}>Cantidad · {item.cantidad}</Text>
               <Text style={styles.price}>{formatCOP(Number(item.precio))} c/u</Text>
             </View>
 
@@ -166,7 +184,7 @@ export default function CartScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.cream },
   headerCard: {
-    backgroundColor: colors.paper,
+    backgroundColor: colors.wineDark,
     marginHorizontal: 16,
     marginTop: 16,
     marginBottom: 10,
@@ -181,8 +199,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  headerTitle: { color: colors.wineDark, fontFamily: typography.display, fontSize: 23 },
-  headerSubtitle: { color: colors.muted, fontSize: 12, marginTop: 4 },
+  headerTitle: { color: colors.paper, fontFamily: typography.display, fontSize: 23 },
+  headerSubtitle: { color: colors.blush, fontSize: 12, marginTop: 4 },
   connectionBadge: { flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 9, paddingVertical: 7, borderRadius: 20 },
   connectionOnline: { backgroundColor: '#E4F3E9' },
   connectionOffline: { backgroundColor: '#FBEADf' },
@@ -191,12 +209,12 @@ const styles = StyleSheet.create({
   emptyContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.cream, padding: 24 },
   emptyTitle: { fontFamily: typography.display, fontSize: 24, color: colors.wineDark, marginBottom: 8 },
   emptyText: { fontSize: 14, color: colors.muted, textAlign: 'center', lineHeight: 22 },
-  itemCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.paper, borderRadius: 16, padding: 12, marginBottom: 12, shadowColor: colors.shadow, shadowOpacity: 0.05, shadowRadius: 8, shadowOffset: { width: 0, height: 3 }, elevation: 1 },
+  itemCard: { flexDirection: 'row', alignItems: 'center', backgroundColor: colors.paper, borderRadius: 16, padding: 12, marginBottom: 12, shadowColor: colors.shadow, shadowOpacity: 0.05, shadowRadius: 8, shadowOffset: { width: 0, height: 3 }, elevation: 1, borderWidth: 1, borderColor: colors.line },
   image: { width: 74, height: 74, borderRadius: 12 },
   itemInfo: { flex: 1, marginLeft: 12 },
-  name: { fontSize: 16, fontWeight: '700', color: colors.ink },
+  name: { fontFamily: typography.body, fontSize: 16, fontWeight: '700', color: colors.ink },
   meta: { fontSize: 12, color: colors.muted, marginTop: 4 },
-  price: { fontSize: 13, color: colors.wine, marginTop: 4, fontWeight: '600' },
+  price: { fontFamily: typography.body, fontSize: 13, color: colors.wine, marginTop: 4, fontWeight: '600' },
   rightColumn: { alignItems: 'flex-end', marginLeft: 8 },
   total: { fontSize: 15, fontWeight: '700', color: colors.ink },
   removeButton: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 8, paddingHorizontal: 10, paddingVertical: 6, borderRadius: 10, backgroundColor: colors.wineSoft },
@@ -204,7 +222,7 @@ const styles = StyleSheet.create({
   footer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 16, backgroundColor: colors.paper, borderTopWidth: 1, borderTopColor: colors.line },
   summaryLabel: { fontSize: 16, fontWeight: '600', color: colors.ink },
   summaryValue: { fontSize: 20, fontWeight: '700', color: colors.wine },
-  orderButton: { backgroundColor: colors.wine, marginHorizontal: 16, marginTop: 14, borderRadius: 14, padding: 14, alignItems: 'center', justifyContent: 'center', flexDirection: 'row', gap: 8, shadowColor: colors.wineDark, shadowOpacity: 0.18, shadowRadius: 8, shadowOffset: { width: 0, height: 4 }, elevation: 3 },
+  orderButton: { backgroundColor: colors.wineDark, marginHorizontal: 16, marginTop: 14, borderRadius: 14, padding: 14, alignItems: 'center', justifyContent: 'center', flexDirection: 'row', gap: 8, shadowColor: colors.wineDark, shadowOpacity: 0.18, shadowRadius: 8, shadowOffset: { width: 0, height: 4 }, elevation: 3 },
   orderButtonText: { color: '#fff', fontSize: 15, fontWeight: '700', textAlign: 'center' },
   clearButton: { backgroundColor: colors.wineDark, margin: 16, borderRadius: 14, padding: 14, alignItems: 'center' },
   clearButtonText: { color: '#fff', fontSize: 15, fontWeight: '700' }
