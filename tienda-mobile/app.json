@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "Luna Rosa",
+    "slug": "tienda-mobile",
+    "version": "1.0.0",
+    "icon": "./assets/icon.png",
+
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/icon.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#FFF9F6"
+        }
+      ]
+    ],
+
+    "extra": {
+      "eas": {
+        "projectId": "51ed7cb0-5dff-4bc2-b990-3f20769c4da1"
+      }
+    },
+
+    "android": {
+      "package": "com.camilape122430.tiendamobile"
+    }
+  }
+}
